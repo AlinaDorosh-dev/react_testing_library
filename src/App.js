@@ -1,29 +1,9 @@
-import { useState } from "react";
-import "./App.css";
+import SummaryForm from "./pages/summary/SummaryForm";
 
 function App() {
-  const [buttonColor, setButtonColor] = useState("red");
-  const [btnDisabled, setBtnDisabled] = useState(false);
-  const newButtonColor = buttonColor === "red" ? "blue" : "red";
-  return (
-    <div className='App'>
-      <button
-        style={{ backgroundColor: `${btnDisabled ? "gray" : buttonColor}` }}
-        onClick={() => setButtonColor(newButtonColor)}
-        disabled={btnDisabled}
-      >
-        Change to {newButtonColor}
-      </button>
-      <input
-        type='checkbox'
-        id='disable-button-checkbox'
-        onChange={(e) => {
-          setBtnDisabled(e.target.checked);
-        }}
-      />
-      <label htmlFor='disable-button-checkbox'>Disable button</label>
-    </div>
-  );
+  return <div className='App'>
+    <SummaryForm />
+  </div>;
 }
 
 export default App;
