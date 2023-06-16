@@ -50,6 +50,7 @@ export function OrderDetailsProvider(props) {
   const totals = {
     scoops: calculeteTotal("scoops"),
     toppings: calculeteTotal("toppings"),
+    total: calculeteTotal("scoops") + calculeteTotal("toppings"),
   };
 
   const value = { optionCounts, totals, updateItemCount, resetOrder };

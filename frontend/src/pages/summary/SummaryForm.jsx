@@ -7,9 +7,7 @@ const popover = (
   </Popover>
 );
 
-
-
-export default function SummaryForm() {
+export default function SummaryForm({ setOrderPhase }) {
   const [tcChecked, setTcChecked] = useState(false);
   const checkboxLabel = (
     <span>
@@ -31,7 +29,12 @@ export default function SummaryForm() {
             label={checkboxLabel}
           />
         </Form.Group>
-        <Button variant='primary' type='submit' disabled={!tcChecked}>
+        <Button
+          variant='primary'
+          type='submit'
+          disabled={!tcChecked}
+          onClick={() => setOrderPhase(3)}
+        >
           Confirm order
         </Button>
       </Form>
