@@ -20,7 +20,11 @@ export default function SummaryForm({ setOrderPhase }) {
 
   return (
     <div>
-      <Form>
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
         <Form.Group controlId='terms-and-conditions'>
           <Form.Check
             type='checkbox'

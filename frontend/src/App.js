@@ -7,15 +7,26 @@ import { OrderDetailsProvider } from "./context/OrderDetails";
 
 function App() {
   const [orderPhase, setOrderPhase] = useState(1);
+  let Component = OrderEntry;
+  switch (orderPhase) {
+    case 1:
+      Component = OrderEntry;
+      break;
+    case 2:
+      Component = OrderSummary;
+      break;
+    case 3:
+      Component = OrderConfirmation;
+      break;
+    default:
+      break;
+  }
+
   return (
     <div className='App'>
       <Container>
         <OrderDetailsProvider>
-          {orderPhase === 1 && <OrderEntry setOrderPhase={setOrderPhase} />}
-          {orderPhase === 2 && <OrderSummary setOrderPhase={setOrderPhase} />}
-          {orderPhase === 3 && (
-            <OrderConfirmation setOrderPhase={setOrderPhase} />
-          )}
+          <Component setOrderPhase={setOrderPhase} />
         </OrderDetailsProvider>
       </Container>
     </div>

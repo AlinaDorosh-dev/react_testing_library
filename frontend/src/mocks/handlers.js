@@ -1,4 +1,8 @@
 import { rest } from "msw";
+//add delay to mock api
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 export const handlers = [
   rest.get("http://localhost:3030/scoops", (req, res, ctx) => {
@@ -19,8 +23,9 @@ export const handlers = [
     );
   }),
 
-  rest.post("http://localhost:3030/order", (req, res, ctx) => {
-    return res(ctx.json({ orderNumber: 1234567890 }));
+  rest.post("http://localhost:3030/order", async (req, res, ctx) => {
+    await sleep(100);
+    return res(ctx.json({ orderNumber: 123455676 }));
   }),
   
 ];

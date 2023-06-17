@@ -94,7 +94,7 @@ describe("grand total", () => {
       name: /Grand total:\$/,
     });
     expect(total).toHaveTextContent("0.00");
-    
+
     //unmount the component and abort network call
     unmount();
   });
@@ -179,9 +179,31 @@ describe("grand total", () => {
 
     await user.type(chocolateInput, "3");
 
-    // expect(total).toHaveTextContent("7.50");
-
+    expect(total).toHaveTextContent("7.50");
+    await user.clear(chocolateInput);
     await user.type(chocolateInput, "1");
     expect(total).toHaveTextContent("3.50");
   });
+});
+
+test("don't update total if scoops input is invalid", async () => {
+  render(<Options optionType='scoops' />, { wrapper: OrderDetailsProvider });
+  const user = userEvent.setup();
+
+  const vanillaInput = await screen.findByRole("spinbutton", {
+    name: "Vanilla",
+  });
+  await user.clear(vanillaInput);
+  await user.type(vanillaInput, "-1");
+  //make sure scoops subtotal hasn't updated
+  const scoopSubtotal = screen.getByText("Scoops total:$", { exact: false });
+
+  expect(scoopSubtotal).toHaveTextContent("0.00");
+  await user.clear(vanillaInput);
+  await user.type(vanillaInput, "100");
+  expect(scoopSubtotal).toHaveTextContent("0.00");
+
+  await user.clear(vanillaInput);
+  await user.type(vanillaInput, "1.25");
+  expect(scoopSubtotal).toHaveTextContent("0.00");
 });
